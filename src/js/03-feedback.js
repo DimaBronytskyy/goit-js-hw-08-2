@@ -1,4 +1,4 @@
-import throttle from 'https://cdn.skypack.dev/lodash.throttle';
+import throttle from 'lodash.throttle';
 
 const form = document.querySelector('.feedback-form');
 const localStorageKey = 'feedback-form-state';

@@ -1,19 +1,18 @@
-import Vimeo from '@vimeo/player';
-import throttle from 'https://cdn.skypack.dev/lodash.throttle';
+import Player from '@vimeo/player';
+import throttle from 'lodash.throttle';
 
-const player = new Player(document.getElementById('vimeo-player'));
-const storageKey = 'videoplayer-current-time';
+const iframe = document.querySelector('iframe');
 
-player.on('loaded', () => {
-  const storedTime = localStorage.getItem(storageKey);
-  if (storedTime) {
-    player.setCurrentTime(parseFloat(storedTime));
-  }
-  player.on('timeupdate', throttle(handleTimeUpdate, 1000));
-});
+const player = new Player(iframe);
 
-function handleTimeUpdate(event) {
-  const currentTime = event.seconds;
+player.on(
+  'timeupdate',
+  throttle(function (data) {
+    localStorage.setItem('videoplayer-current-time', data.seconds);
+  }, 1000)
+);
 
-  localStorage.setItem(storageKey, currentTime);
-}
+player.setCurrentTime(
+  JSON.parse(localStorage.getItem('videoplayer-current-time'))
+);
+console.log(Player);
