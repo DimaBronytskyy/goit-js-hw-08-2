@@ -12,7 +12,7 @@ player.on(
   }, 1000)
 );
 
-if (savedCurrentTime !== null) {
-  player.setCurrentTime(parseFloat(savedCurrentTime));
-} 
+const savedCurrentTime = localStorage.getItem(localStorageKey) || null;
+player.setCurrentTime(savedCurrentTime);
+
 console.log(Player);
